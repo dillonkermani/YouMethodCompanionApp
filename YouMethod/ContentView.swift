@@ -26,7 +26,7 @@ struct ContentView: View {
                 .ignoresSafeArea()
             VStack {
                 Button {
-                    openURL(URL(string: "https://www.youmethod.com/")!)
+                    presentAlert.toggle()
                 } label: {
                     VStack {
                         Text("(Tap to Redirect)")
@@ -85,9 +85,10 @@ struct ContentView: View {
             UIApplication.shared.applicationIconBadgeNumber = 0
             presentAlert.toggle()
             checkNotificationAuth()
-            notificationManager.addLocalNotification(title: "8am reminder", body: "Tap here to self-reflect", hour: 8, minute: 00)
-            notificationManager.addLocalNotification(title: "2pm reminder", body: "Tap here to self-reflect", hour: 14, minute: 00)
-            notificationManager.addLocalNotification(title: "8pm reminder", body: "Tap here to self-reflect", hour: 20, minute: 00)
+            
+            notificationManager.addLocalNotification(title: "Morning journal", body: "Tap here to self-reflect", hour: 8, minute: 00)
+            notificationManager.addLocalNotification(title: "Midday journal", body: "Tap here to self-reflect", hour: 14, minute: 00)
+            notificationManager.addLocalNotification(title: "Evening journal", body: "Tap here to self-reflect", hour: 20, minute: 00)
             
             
             NotificationCenter.default.addObserver(forName: NSNotification.Name("Detail"), object: nil, queue: .main) { (_) in

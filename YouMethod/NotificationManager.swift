@@ -40,6 +40,7 @@ final class NotificationManager: ObservableObject {
         
         
         var datComp = DateComponents()
+        datComp.calendar = Calendar.current
         datComp.hour = hour
         datComp.minute = minute
         
@@ -55,7 +56,11 @@ final class NotificationManager: ObservableObject {
                         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: trigger)
         
-        UNUserNotificationCenter.current().add(request)
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if error != nil {
+                print("Error adding notification to Notification Center: \(error!)")
+            }
+        }
 
         
     }
