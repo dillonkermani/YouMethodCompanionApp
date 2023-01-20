@@ -86,9 +86,9 @@ struct ContentView: View {
             presentAlert.toggle()
             checkNotificationAuth()
             
-            notificationManager.addLocalNotification(title: "Morning reflection", body: "Please take this moment to check in with yourself", hour: 8, minute: 00)
-            notificationManager.addLocalNotification(title: "Afternoon reflection", body: "Please take this moment to check in with yourself", hour: 14, minute: 00)
-            notificationManager.addLocalNotification(title: "Evening reflection", body: "Please take this moment to check in with yourself", hour: 20, minute: 00)
+            notificationManager.addLocalNotification(title: "Morning reflection", body: "Please take a moment and check in with yourself", hour: 8, minute: 00)
+            notificationManager.addLocalNotification(title: "Afternoon reflection", body: "Please take a moment and check in with yourself", hour: 14, minute: 00)
+            notificationManager.addLocalNotification(title: "Evening reflection", body: "Please take a moment and check in with yourself", hour: 20, minute: 00)
             
             
             NotificationCenter.default.addObserver(forName: NSNotification.Name("Detail"), object: nil, queue: .main) { (_) in
