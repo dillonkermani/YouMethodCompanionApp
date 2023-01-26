@@ -16,6 +16,7 @@
 		65ADDEEB296FCC82000273BD /* YouMethodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ADDEEA296FCC82000273BD /* YouMethodUITests.swift */; };
 		65ADDEED296FCC82000273BD /* YouMethodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65ADDEEC296FCC82000273BD /* YouMethodUITestsLaunchTests.swift */; };
 		65B896AF297127C50037C660 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B896AE297127C50037C660 /* NotificationManager.swift */; };
+		65C3EBA929821C9900766659 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 65C3EBA829821C9900766659 /* BetterSafariView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C3EBA929821C9900766659 /* BetterSafariView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				65ADDECD296FCC7F000273BD /* YouMethod */,
-				65ADDEDF296FCC82000273BD /* YouMethodTests */,
 				65ADDEE9296FCC82000273BD /* YouMethodUITests */,
 				65ADDECC296FCC7F000273BD /* Products */,
 			);
@@ -104,6 +105,7 @@
 				6561D0CC2979C9EA00FDE470 /* AppDelegate.swift */,
 				65B896AE297127C50037C660 /* NotificationManager.swift */,
 				65ADDED2296FCC82000273BD /* Assets.xcassets */,
+				65ADDEDF296FCC82000273BD /* YouMethodTests */,
 				65ADDED4296FCC82000273BD /* YouMethod.entitlements */,
 				65ADDED5296FCC82000273BD /* Preview Content */,
 			);
@@ -151,6 +153,9 @@
 			dependencies = (
 			);
 			name = YouMethod;
+			packageProductDependencies = (
+				65C3EBA829821C9900766659 /* BetterSafariView */,
+			);
 			productName = YouMethod;
 			productReference = 65ADDECB296FCC7F000273BD /* YouMethod.app */;
 			productType = "com.apple.product-type.application";
@@ -223,6 +228,9 @@
 				Base,
 			);
 			mainGroup = 65ADDEC2296FCC7F000273BD;
+			packageReferences = (
+				65C3EBA729821C9900766659 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
+			);
 			productRefGroup = 65ADDECC296FCC7F000273BD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -423,7 +431,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YouMethod/Preview Content\"";
-				DEVELOPMENT_TEAM = GYVU2SNZW9;
+				DEVELOPMENT_TEAM = UF86Q2F792;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -442,7 +450,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.youmethod.YouMethod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companion.YouMethod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -463,7 +471,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"YouMethod/Preview Content\"";
-				DEVELOPMENT_TEAM = GYVU2SNZW9;
+				DEVELOPMENT_TEAM = UF86Q2F792;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -482,7 +490,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.youmethod.YouMethod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.companion.YouMethod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -624,6 +632,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		65C3EBA729821C9900766659 /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stleamist/BetterSafariView.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		65C3EBA829821C9900766659 /* BetterSafariView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 65C3EBA729821C9900766659 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
+			productName = BetterSafariView;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 65ADDEC3296FCC7F000273BD /* Project object */;
 }

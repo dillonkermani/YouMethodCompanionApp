@@ -6,6 +6,14 @@
 //
 
 import SwiftUI
+import BetterSafariView
+
+struct MainControls {
+    var notificationsEnabled = false
+    var presentAlert = false
+    var safariViewShowing = false
+    var safariUrl = "https://youmethod.com/"
+}
 
 struct ContentView: View {
     
@@ -13,9 +21,8 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var appDelegate: AppDelegate
     
-    @State var notificationsEnabled = false
-    @State var presentAlert = false
-    
+    @State var controls = MainControls()
+
     let notificationManager = NotificationManager()
     
     var body: some View {
@@ -26,10 +33,10 @@ struct ContentView: View {
                 .ignoresSafeArea()
             VStack {
                 Button {
-                    presentAlert.toggle()
+                    controls.presentAlert.toggle()
                 } label: {
                     VStack {
-                        Text("(Tap to Redirect)")
+                        Text("(Tap to Open)")
                             .foregroundColor(.white)
                             .font(.system(size: 25))
                             .padding(.top, 60)
@@ -37,58 +44,41 @@ struct ContentView: View {
                         Image("ym_cascade")
                             .resizable()
                             .scaledToFit()
-                            .padding(140)
+                            .padding([.bottom, .leading, .trailing], 150)
+                            .padding(.top, 60)
+                        Spacer()
                     }
                     
                 }
                 
-                Spacer()
-                
                 HStack {
-                    VStack {
-                        Button {
-                            openURL(URL(string: "https://www.youmethod.com/#SignUp")!)
-                        } label: {
-                            customButton(icon: "rectangle.and.pencil.and.ellipsis", label: "Sign Up", width: 160, height: 50, fontsize: 23, color: .black)
-                        }
-                        Button {
-                            openURL(URL(string: "https://www.youmethod.com/#SignIn")!)
-                        } label: {
-                            customButton(icon: "rectangle.portrait.and.arrow.right", label: "Sign In", width: 160, height: 50, fontsize: 23, color: .black)
-                        }
-                    }
-                    
-                    // Spacer not working as expected so using this instead.
-                    Rectangle()
-                        .frame(width: UIScreen.main.bounds.width/3.5, height: 0)
-                    VStack {
-                        Rectangle()
-                            .frame(width: 0, height: 70)
-                        notificationToggleButton()
-                    }
-                    
-                }.padding()
+                    notificationToggleButton()
+                }.padding(50)
             }
         }.onChange(of: scenePhase) { newPhase in
             if newPhase == .active {
-                print("Active")
+                //print("Active")
                 checkNotificationAuth()
             } else if newPhase == .inactive {
-                print("Inactive")
+                //print("Inactive")
                 checkNotificationAuth()
             } else if newPhase == .background {
-                print("Background")
+                //print("Background")
                 checkNotificationAuth()
             }
         }
         .onAppear() {
             UIApplication.shared.applicationIconBadgeNumber = 0
-            presentAlert.toggle()
+            controls.presentAlert.toggle()
             checkNotificationAuth()
             
-            notificationManager.addLocalNotification(title: "Morning reflection", body: "Please take a moment and check in with yourself", hour: 8, minute: 00)
-            notificationManager.addLocalNotification(title: "Afternoon reflection", body: "Please take a moment and check in with yourself", hour: 14, minute: 00)
-            notificationManager.addLocalNotification(title: "Evening reflection", body: "Please take a moment and check in with yourself", hour: 20, minute: 00)
+            notificationManager.deleteLocalNotifications()
+            
+            notificationManager.addLocalNotification(title: "Morning reflection 🌱🌞", body: "Take a moment to check in with You", hour: 8, minute: 00)
+            
+            notificationManager.addLocalNotification(title: "Afternoon reflection 🌎💫", body: "Take a moment to check in with You ", hour: 14, minute: 00)
+            notificationManager.addLocalNotification(title: "Evening reflection 🌒✨", body: "Take a moment to check in with You", hour: 20, minute: 00)
+            
             
             
             NotificationCenter.default.addObserver(forName: NSNotification.Name("Detail"), object: nil, queue: .main) { (_) in
@@ -96,13 +86,28 @@ struct ContentView: View {
                 
             }
         }
-        .alert("Open YouMethod?", isPresented: $presentAlert, actions: {
-            Button("Open", action: {openURL(URL(string: "https://www.youmethod.com/")!)})
+        .alert("Open YouMethod?", isPresented: $controls.presentAlert, actions: {
+            Button("Open", action: {
+                controls.safariViewShowing.toggle()
+            })
             Button("Cancel", role: .cancel, action: {})
 
             }, message: {
-              Text("Redirect to browser.")
+              Text("Open in browser.")
             })
+        .safariView(isPresented: $controls.safariViewShowing) {
+                    SafariView(
+                        url: URL(string: controls.safariUrl)!,
+                        configuration: SafariView.Configuration(
+                            entersReaderIfAvailable: false,
+                            barCollapsingEnabled: true
+                        )
+                    )
+                    .preferredBarAccentColor(.white)
+                    .preferredControlAccentColor(.accentColor)
+                    .dismissButtonStyle(.done)
+        }
+
     }
     
     private func notificationToggleButton() -> some View {
@@ -113,7 +118,7 @@ struct ContentView: View {
                         }
                     }
         } label: {
-            customButton(icon: notificationsEnabled ? "bell.fill" : "bell.slash.fill", label: "", width: 60, height: 60, fontsize: 23, color: notificationsEnabled ? .blue : .gray.opacity(0.8))
+            customButton(icon: controls.notificationsEnabled ? "bell.fill" : "bell.slash.fill", label: "", width: 80, height: 80, fontsize: 35, color: controls.notificationsEnabled ? .blue : .gray.opacity(0.8)).cornerRadius(25)
         }
     }
     
@@ -141,13 +146,13 @@ struct ContentView: View {
         notificationManager.reloadAuthorizationStatus()
         notificationManager.requestAuthorization()
         if notificationManager.authorizationStatus == .authorized {
-            print("Authorization status: authorized")
-            notificationsEnabled = true
+            controls.notificationsEnabled = true
         }else {
             notificationManager.requestAuthorization()
-            notificationsEnabled = false
+            controls.notificationsEnabled = false
         }
     }
+
 }
 
 
@@ -157,3 +162,5 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+

@@ -60,13 +60,16 @@ final class NotificationManager: ObservableObject {
             if error != nil {
                 print("Error adding notification to Notification Center: \(error!)")
             }
+            else {
+                print("Successfully added Notification: \(notificationContent.title)\n\(notificationContent.body) to Notification Center")
+            }
         }
 
         
     }
     
-    func deleteLocalNotifications(identifiers: [String]) {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: identifiers)
+    func deleteLocalNotifications() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
     
 }
